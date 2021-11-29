@@ -104,12 +104,14 @@ def newfilm(film,year):
     INSERT INTO `Film` (Name,year)
     VALUES ('{film}', {year});
     """)
+    return "Se ha introducido correctamente una peli"
 
 def newcharacter(character):
     engine.execute(f"""
     INSERT INTO `Character` (Name)
     VALUES ('{character}');
     """)
+    return "Se ha introducido correctamente un personaje"
 
 def sentiment_analysis(name,film):
     idname = dameId('Character', name)
@@ -117,7 +119,7 @@ def sentiment_analysis(name,film):
 
     query= f"""
     SELECT line
-    FROM mydb.Lines
+    FROM `Lines`
     WHERE Film_FilmID = {idfilm}
     AND Character_characterID = {idname};
     """

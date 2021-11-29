@@ -64,7 +64,7 @@ def insertcharacter():
 @app.route("/sentiment/<name>/<film>")
 def sentiment_author(name,film):
     df = sqlt.sentiment_analysis(name,film)
-    df['Tokenized'] = df['Text'].apply(sqlt.tokenizer)
+    df['Tokenized'] = df['line'].apply(sqlt.tokenizer)
     df['Sentiments'] = df['Tokenized'].apply(sqlt.sentiment)
     return str(df.Sentiments.mean())
 
