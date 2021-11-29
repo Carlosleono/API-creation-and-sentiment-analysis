@@ -12,31 +12,26 @@ conec = f"mysql+pymysql://root:{password}@localhost/{db_name}"
 engine = alch.create_engine(conec)
 
 def nombres(marvel):
-    for index, row in marvel.iterrows():
-        if re.match('.*TONY.*', row['character']):
-            row['character'] = 'TONY STARK'
-        if re.match('.*STEVE.*', row['character']):
-            row['character'] = 'STEVE ROGERS'
-        if re.match('.*NATASHA.*', row['character']):
-            row['character'] = 'NATASHA ROMANOFF'
-        if re.match('.*FURY.*', row['character']):
-            row['character'] = 'FURY'
-        if re.match('.*THOR.*', row['character']):
-            row['character'] = 'THOR'
-        if re.match('.*CLINT.*', row['character']):
-            row['character'] = 'CLINT BARTON'
-        if re.match('.*HULK.*', row['character']):
-            row['character'] = 'HULK'
-        if re.match('.*LOKI.*', row['character']):
-            row['character'] = 'LOKI'
+    for row in marvel:
+        if re.match('.*TONY.*', row):
+            row = 'TONY STARK'
+        if re.match('.*STEVE.*', row):
+            row = 'STEVE ROGERS'
+        if re.match('.*NATASHA.*', row):
+            row = 'NATASHA ROMANOFF'
+        if re.match('.*FURY.*', row):
+            row = 'FURY'
+        if re.match('.*THOR.*', row):
+            row = 'THOR'
+        if re.match('.*CLINT.*', row):
+            row = 'CLINT BARTON'
+        if re.match('.*HULK.*', row):
+            row = 'HULK'
+        if re.match('.*LOKI.*', row):
+            row = 'LOKI'
     return marvel
 
-    # def names(marvel):
-    #     for _,row in marvel.iterrows():
-    #         nombre= row['character']
-    #         engine.execute(f"INSERT INTO `Character` (Name) VALUES ('{nombre}')")
-        
-    #     return print('Nombres insertados')
+    
 
 def check(tabla, valor):
     '''
