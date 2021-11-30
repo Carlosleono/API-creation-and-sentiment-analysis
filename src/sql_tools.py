@@ -22,6 +22,9 @@ conec = f"mysql+pymysql://root:{password}@localhost/{db_name}"
 engine = alch.create_engine(conec)
 
 def getcharacters():
+    """
+    This function returns all the character names in a list of dictionaries to make it possible to convert to a panda
+    """
     query = f"""
     SELECT Name 
     FROM mydb.Character 
@@ -32,6 +35,9 @@ def getcharacters():
     return lista
 
 def getfilms():
+    """
+    This function returns all the films in the database in a list of dictionaries to make it possible to convert to a panda
+    """
     queryf = f"""
     SELECT Name 
     FROM mydb.Film;
@@ -51,7 +57,9 @@ def dameId(que,string):
         return list(engine.execute(f"SELECT FilmID FROM Film WHERE Name ='{string}';"))[0][0]
 
 def obtenerfrases(nombre):
-    
+    """
+    This function returns all the lines in the database in a list of dictionaries to make it possible to convert to a panda
+    """
     id = dameId('Character', nombre)
     
     query2= f"""
@@ -64,6 +72,9 @@ def obtenerfrases(nombre):
     return lista
 
 def obtenerfrasespeli(peli):
+    """
+    This function returns all the lines in a specified film in a list of dictionaries to make it possible to convert to a panda
+    """
     
     id = dameId('Film', peli)
 
@@ -77,7 +88,9 @@ def obtenerfrasespeli(peli):
     return lista
 
 def obtenerfrasespelinombre(peli, nombre):
-    
+    """
+    This function returns all the lines in a specified film in a list of dictionaries to make it possible to convert to a panda
+    """
     idname = dameId('Character', nombre)
     idfilm = dameId('Film', peli)
 
@@ -92,7 +105,10 @@ def obtenerfrasespelinombre(peli, nombre):
     return lista
 
 def newline(line,character,film, year):
-
+    """
+    This function insert a line in Lines table, receiving the line, the character that says it, the film in which it is said
+    and the year of the film
+    """
     cid = dameId('Character', character)
     fid = dameId('Film', film)
     engine.execute(f"""
@@ -103,6 +119,9 @@ def newline(line,character,film, year):
     return f"Se ha introducido correctamente: {line} {character} {film}"
 
 def newfilm(film,year):
+    """
+    This function insert a new film in Film table receiving the name of the film and the year
+    """
     engine.execute(f"""
     INSERT INTO `Film` (Name,year)
     VALUES ('{film}', {year});
@@ -110,6 +129,9 @@ def newfilm(film,year):
     return "Se ha introducido correctamente una peli"
 
 def newcharacter(character):
+    """
+    This function insert a character in Character table receiving the name of the character
+    """
     engine.execute(f"""
     INSERT INTO `Character` (Name)
     VALUES ('{character}');
