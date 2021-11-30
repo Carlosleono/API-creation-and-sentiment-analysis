@@ -32,14 +32,14 @@ def getcharacters():
     return lista
 
 def getfilms():
-    query = f"""
+    queryf = f"""
     SELECT Name 
-    FROM mydb.Film 
+    FROM mydb.Film;
     """
 
-    pelis = pd.read_sql_query(query,engine)
-    
-    return pelis.to_json(orient='records')
+    pelis = pd.read_sql_query(queryf,engine)
+    lista = [{'Film': peli} for peli in pelis['Name']]
+    return lista
 
 def dameId(que,string):
     """
@@ -60,7 +60,8 @@ def obtenerfrases(nombre):
     WHERE Character_characterID = {id};
     """
     lines = pd.read_sql_query(query2, engine)
-    return lines.to_json(orient='records')
+    lista = [{'Line': line} for line in lines['line']]
+    return lista
 
 def obtenerfrasespeli(peli):
     
@@ -72,7 +73,8 @@ def obtenerfrasespeli(peli):
     WHERE Film_FilmID = {id};
     """
     lines = pd.read_sql_query(query2, engine)
-    return lines.to_json(orient='records')
+    lista = [{'Line': line} for line in lines['line']]
+    return lista
 
 def obtenerfrasespelinombre(peli, nombre):
     
@@ -86,7 +88,8 @@ def obtenerfrasespelinombre(peli, nombre):
     AND Character_characterID = {idname};
     """
     lines = pd.read_sql_query(query3, engine)
-    return lines.to_json(orient='records')
+    lista = [{'Line': line} for line in lines['line']]
+    return lista
 
 def newline(line,character,film, year):
 

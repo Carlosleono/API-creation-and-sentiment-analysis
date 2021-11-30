@@ -20,24 +20,24 @@ def personajes():
 @app.route("/films")
 def pelis():
     pelis= sqlt.getfilms()
-    return jsonify(pelis)
+    return json.dumps(pelis)
 
 @app.route("/characterlines/<name>")
 def frasesnombre(name):
     frasespersonaje= sqlt.obtenerfrases(name)
-    return jsonify(frasespersonaje)
+    return json.dumps(frasespersonaje)
 
 @app.route("/filmlines/<film>")
 def frasespeli(film):
     frasespeli= sqlt.obtenerfrasespeli(film)
-    return jsonify(frasespeli)
+    return json.dumps(frasespeli)
 
 
 @app.route("/filmcharacterlines/<film>/<name>")
 def frasespelinombre(film,name):
     
     frasespelinombre = sqlt.obtenerfrasespelinombre(film, name)
-    return jsonify(frasespelinombre)
+    return json.dumps(frasespelinombre)
 
 @app.route("/newline", methods=["POST"])
 def insertline():
@@ -64,7 +64,7 @@ def insertcharacter():
 @app.route("/sentiment/<name>/<film>")
 def sentiment_author(name,film):
     df = sqlt.sentiment_analysis(name,film)
-    df['Tokenized'] = df['line'].apply(sqlt.tokenizer)
+    df['Tokenized'] = df['line'][:5].apply(sqlt.tokenizer)
     df['Sentiments'] = df['Tokenized'].apply(sqlt.sentiment)
     return str(df.Sentiments.mean())
 
